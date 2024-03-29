@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+  
+  div.container-fluid
+    div.row
+      -
+        let results = [
+          { item_type: 'Sports Bike', item_name: 'Harley Davidson', item_price: 100 },
+          { item_type: 'Classic', item_name: 'Yamaha', item_price: 200 },
+          { item_type: 'Scooty', item_name: 'Duke', item_price: 150 }
+        ]
+        
+      each bikes,index in results
+        .col-sm-2 
+        div.col-sm-2(onclick=`buy(${index})`)
+        
+          p Item_type: #{bikes.item_type}
+          p Name: #{bikes.item_name}
+          p Price: $#{bikes.item_price.toFixed(2)}
+
+  a(href="/") Back to index
+
+    script. 
+        function buy(index) {
+            alert(`You purchased item ${index}`);
+        }
