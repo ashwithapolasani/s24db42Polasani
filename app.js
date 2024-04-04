@@ -3,12 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded");});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gridRouter = require('./routes/grid'); //grid endpoint added
 var pickRouter = require('./routes/pick');//pick endpoint added
 var bikesRouter = require('./routes/bikes');
+var bikes = require('./models/bikes');
+var resourceRouter = require('./routes/resource');
 
 
 var app = express();
@@ -28,6 +41,7 @@ app.use('/users', usersRouter);
 app.use('/grid', gridRouter); //grid endpoint added
 app.use('/pick', pickRouter); //pick endpoint added
 app.use('/bikes', bikesRouter);
+app.use('/resource', resourceRouter);
 
 
 // catch 404 and forward to error handler
@@ -47,3 +61,27 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+async function recreateDB(){
+  // Delete everything
+  await bikes.deleteMany();
+ 
+  let instance1 = new bikes({item_type:"Sports Bike", item_name:'Harley Davidson',item_price:100});
+  instance1.save().then(doc=>{ console.log("First object saved")} ).catch(err=>{
+  console.error(err)
+  });
+ 
+  let instance2 = new bikes({item_type:"Classic", item_name:'Yamaha',item_price:200});
+  instance2.save().then(doc=>{ console.log("Second object saved")} ).catch(err=>{
+  console.error(err)
+  });
+ 
+  let instance3 = new bikes({item_type:"Scooty", item_name:'Duke',item_price:150});
+  instance3.save().then(doc=>{ console.log("Third object saved")} ).catch(err=>{
+  console.error(err)
+  });
+ 
+ 
+ }
+ let reseed = true;
+ if (reseed) {recreateDB();}
