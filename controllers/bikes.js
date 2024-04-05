@@ -1,26 +1,30 @@
+// Import the necessary model
 var bikes = require('../models/bikes');
-// List of all bikes
+ 
+// Controller function to list all bikess
 exports.bikes_list = function (req, res) {
     res.send('NOT IMPLEMENTED: bikes list');
 };
-// for a specific bikes.
+ 
+// Controller function to get details of a specific bikes
 exports.bikes_detail = function (req, res) {
     res.send('NOT IMPLEMENTED: bikes detail: ' + req.params.id);
 };
-// Handle bikes create on POST.
+ 
+// Controller function to create a new bikes
 exports.bikes_create_post = function (req, res) {
     res.send('NOT IMPLEMENTED: bikes create POST');
 };
-// Handle bikes delete from on DELETE.
+ 
+// Controller function to delete a specific bikes
 exports.bikes_delete = function (req, res) {
     res.send('NOT IMPLEMENTED: bikes delete DELETE ' + req.params.id);
 };
-
-// Handle bikes update form on PUT.
+ 
+// Controller function to update details of a specific bikes
 exports.bikes_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: bikes update PUT' + req.params.id);
+    res.send('NOT IMPLEMENTED: bikes update PUT ' + req.params.id);
 };
-
 
 exports.bikes_list = async function (req, res) {
     try {
@@ -65,3 +69,34 @@ exports.bikes_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
+
+// exports.bikes_detail = async function(req, res) {
+//     console.log("detail" + req.params.id)
+//     try {
+//     result = await bikes.findById( req.params.id)
+//     res.send(result)
+//     } catch (error) {
+//     res.status(500)
+//     res.send(`{"error": document for id ${req.params.id} not found`);
+//     }
+//     };
+    
+exports.bikes_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await bikes.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.bikes_type)
+    toUpdate.bikes_type = req.body.bikes_type;
+    if(req.body.cost) toUpdate.cost = req.body.cost;
+    if(req.body.size) toUpdate.size = req.body.size;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+    failed`);
+    }
+    };

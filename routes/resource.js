@@ -7,7 +7,7 @@ var bikes_controller = require('../controllers/bikes');
 // GET resources base.
 router.get('/', api_controller.api);
 /// bikes ROUTES ///
-// POST request for creating a bikes.
+// POST request for creating a bikes. 
 router.post('/bikes', bikes_controller.bikes_create_post);
 // DELETE request to delete bikes.
 router.delete('/bikes/:id', bikes_controller.bikes_delete);
