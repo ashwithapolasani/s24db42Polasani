@@ -1,0 +1,39 @@
+extends layout
+block content
+  h1= title
+  - let bikesid = toShow._id
+  - let item_type = toShow.item_type
+  - let item_name = toShow.item_name
+  - let item_price = toShow.item_price
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{bikesid}
+  - let actionid = "/resource/bikes/" + bikesid
+  form(id='bikesForm', action= actionid, method="PUT")
+    div.form-group
+      label.bikesAttr(for='item_type') bikes type
+      input#item_type(type='text', name='item_type', value= item_type )
+    div.form-group
+      label.bikesAttr(for='item_name') bikes name
+      input#item_name(type='text', name='item_name', value= item_name )
+    div.form-group
+      label.bikesAttr(for='item_price') bikes price
+      input#item_price(type='number', name='item_price', value= item_price )
+    input(type="submit")
+  script.
+    document.forms['bikesForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.text(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+      });
+    });

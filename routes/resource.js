@@ -17,4 +17,9 @@ router.put('/bikes/:id', bikes_controller.bikes_update_put);
 router.get('/bikes/:id', bikes_controller.bikes_detail);
 // GET request for list of all bikes items.
 router.get('/bikes', bikes_controller.bikes_list);
+
+/* GET delete bikes page */
+router.get('/delete', bikes_controller.bikes_delete_Page);
+
+
 module.exports = router;

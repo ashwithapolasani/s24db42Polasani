@@ -101,7 +101,7 @@ exports.bikes_update_put = async function(req, res) {
     }
     };
 
-    // Handle Costume delete on DELETE.
+    // Handle bikes delete on DELETE.
     exports.bikes_delete = async function(req, res) {
         console.log("delete " + req.params.id)
         try {
@@ -112,4 +112,62 @@ exports.bikes_update_put = async function(req, res) {
             res.status(500)
             res.send(`{"error": Error deleting ${err}}`);
         }
+    };
+
+    exports.bikes_view_one_Page = async function (req, res) {
+        console.log("single view for id " + req.query.id)
+        try {
+            result = await bikes.findById(req.query.id)
+            res.render('bikesdetail',
+                { title: 'bikes Detail', toShow: result });
+        }
+        catch (err) {
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+        }
+    };
+
+
+// Handle building the view for creating a bikes.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.bikes_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('bikescreate', { title: 'bikes Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+
+
+// Handle building the view for updating a bikes.
+// query provides the id
+exports.bikes_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await bikes.findById(req.query.id)
+    res.render('bikesupdate', { title: 'bikes Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+// Handle a delete one view with id from query
+exports.bikes_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await bikes.findById(req.query.id)
+    res.render('bikesdelete', { title: 'bikes Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
     };

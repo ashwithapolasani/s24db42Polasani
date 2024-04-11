@@ -6,3 +6,18 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+  .bikesAttr {
+    background-color: rgb(233, 198, 27);
+    width: 120px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: rgb(255, 9, 161)
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  

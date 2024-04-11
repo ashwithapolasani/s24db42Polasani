@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  - let bikesid = toShow._id
+  - let bikes_type = toShow.item_type
+  - let bikes_size = toShow.item_name
+  - let bikes_price = toShow.item_price
+  div
+    div.row
+      div(class='bikesAttr mr-3') bikes ID is:
+        div #{bikesid}
+    div.row
+      div(class='bikesAttr mr-3') bikes Type is:
+        div #{bikes_type}
+    div.row
+      div(class='bikesAttr mr-3') bikes Size is:
+        div #{bikes_size}
+    div.row
+      div(class='bikesAttr mr-3') bikes Cost is:
+        div #{bikes_price}
