@@ -2,23 +2,27 @@ extends layout
 
 block content
   h1= title
-  
+  //- button.btn.btn-primary(onClick=`dispatch(\"/bikes/create\")`) Create Bike
+  - let bikes = results 
   div.container-fluid
-    div.row
-      -
-        let bikes = results 
-        
+    div(class="row m-1")
+      
       each bikes, index in results
-        .col-sm-2 
-        div.col-sm-2(onclick=`buy(${index})`)
-        
+        - let destination = `dispatch(\"/bikes/update?id=${bikes._id}\")`
+          //- - let details = `dispatch(\"/bikes/detail?id=${v._id}\")`
+          //- - let deleteItem = `dispatch(\"/bikes/delete?id=${v._id}\")`
+
           p item_type: #{bikes.item_type}
           p item_name: #{bikes.item_name}
           p item_price: $#{bikes.item_price.toFixed(2)}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
 
   a(href="/") Back to index
 
    script.
+        function dispatch(path){
+            window.location.href=path
+        }
     function buy(index) {
         alert(`You purchased item ${index}`);
     }
