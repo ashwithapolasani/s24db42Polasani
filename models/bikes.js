@@ -1,8 +1,11 @@
 const mongoose = require("mongoose")
-const bikesSchema = mongoose.Schema({
+const bikesSchema = new mongoose.Schema({
+    item_type : String,
     item_name: {
         type: String,
-        required: true
+        required: true,
+        minlength: 3,
+        maxlength: 50
     },
     item_price: {
         type: Number,
@@ -10,8 +13,8 @@ const bikesSchema = mongoose.Schema({
         min: 0, // Minimum value allowed
         max: 1000 // Maximum value allowed
     },
-});
-
+})
+module.exports = mongoose.model("bikes", bikesSchema)
 
 
 //     item_type: {

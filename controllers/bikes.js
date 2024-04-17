@@ -131,7 +131,7 @@ exports.bikes_create_post = async function (req, res) {
 //     result = await bikes.findById( req.params.id)
 //     res.send(result)
 //     } catch (error) {
-//     res.status(500)
+//     res.status(500)create
 //     res.send(`{"error": document for id ${req.params.id} not found`);
 //     }
 //     };

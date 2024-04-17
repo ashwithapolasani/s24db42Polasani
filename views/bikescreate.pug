@@ -1,20 +1,17 @@
 extends layout
 block content
   h1= title
-  if (toShow == null)
-    h2 No instance to update
-  else
-    form(id='bikesForm', action="/resource/bikes", method="POST")
-        div.form-group
-        label.bikesAttr(for='item_type') bikes type
-        input#item_type(type='text', name='item_type')
-        div.form-group
-        label.bikesAttr(for='item_name') bikes name
-        input#item_name(type='text', name='item_name')
-        div.form-group
-        label.bikesAttr(for='item_price') bikes price
-        input#item_price(type='number', name='item_price')
-        input(type="submit")
+  form(id='bikesForm', action="/resource/bikes", method="POST")
+    div.form-group
+      label.bikesAttr(for='item_type') bikes type
+      input#item_type(type='text', name='item_type')
+    div.form-group
+      label.bikesAttr(for='item_name') bikes name
+      input#item_name(type='text', name='item_name')
+    div.form-group
+      label.bikesAttr(for='item_price') bikes price
+      input#item_price(type='number', name='item_price')
+    input(type="submit")
   script.
     document.forms['bikesForm'].addEventListener('submit', (event) => {
       event.preventDefault();
