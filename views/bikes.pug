@@ -2,20 +2,23 @@ extends layout
 
 block content
   h1= title
-  //- button.btn.btn-primary(onClick=`dispatch(\"/bikes/create\")`) Create Bike
+  button.btn.btn-primary(onClick=`dispatch(\"/bikes/create\")`) Create Bike
   - let bikes = results 
   div.container-fluid
     div(class="row m-1")
       
       each bikes, index in results
         - let destination = `dispatch(\"/bikes/update?id=${bikes._id}\")`
-          //- - let details = `dispatch(\"/bikes/detail?id=${v._id}\")`
-          //- - let deleteItem = `dispatch(\"/bikes/delete?id=${v._id}\")`
-
-          p item_type: #{bikes.item_type}
-          p item_name: #{bikes.item_name}
-          p item_price: $#{bikes.item_price.toFixed(2)}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
+        - let details = `dispatch(\"/bikes/detail?id=${bikes._id}\")`
+        - let deleteItem = `dispatch(\"/bikes/delete?id=${bikes._id}\")`
+        div(class="col-sm-2 p-10 m-2" class="m-1") 
+            p item_type: #{bikes.item_type}
+            p item_name: #{bikes.item_name}
+            p item_price: $#{bikes.item_price.toFixed(2)}
+            div(class="row")
+              button.btn( class="btn-primary ml-1", onclick= destination) Update
+              button.btn.btn-success.m-2(onclick=details) View Details
+              button.btn.btn-danger.m-2(onclick=deleteItem) Delete
 
   a(href="/") Back to index
 
